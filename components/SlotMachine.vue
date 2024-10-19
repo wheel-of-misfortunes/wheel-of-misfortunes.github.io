@@ -1,7 +1,10 @@
 <template>
     <div class="page-container">
-      <h1>Slot Machine of Pain</h1>
-      <input type="text" v-model="nameInput" placeholder="Enter a name for this spin" id="nameInput" />
+      <div class="slot-machine-logo-container">
+        <img class="slot-machine-logo" src="../assets/content/7670528.png"/>
+        <h1>Spinning for {{ characterCount }} players</h1>
+      </div>
+      <input type="text" v-model="nameInput" placeholder="Enter a character name for this spin" id="nameInput" />
       <div v-if="showRoleOptions">
         <div id="resultRole">Role: {{ resultRole }}</div>
       <div id="slotMachine">
@@ -25,7 +28,7 @@
         </div>
       </div>
       </div>
-      <button id="spinButton" @click="spinOptions">Spin</button>
+      <button id="spinButton" class="button" @click="spinOptions">Spin</button>
       <ul id="resultsList">
         <li v-for="result in results" :key="result">{{ result }}</li>
       </ul>
@@ -34,7 +37,12 @@
   
 <script lang="ts" setup>
   import { ref } from 'vue';
-  
+  import { defineProps } from 'vue';
+
+  const props = defineProps<{
+    characterCount: number;
+  }>();
+
   const slotColors = ref(['', '', '']);
   const showRoleOptions = ref(false);
 
@@ -167,6 +175,17 @@ function spinOptions() {
 </script>
   
 <style scoped>
+.slot-machine-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.slot-machine-logo {
+    width: 25%;
+}
+
 .page-container {
     display: flex;
     flex-direction: column;
@@ -175,38 +194,40 @@ function spinOptions() {
     width: 100%;
     height: 100%;
     text-align: center;
-  }
-
-h1 {
-  color: #fff;
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 2rem;
+    background-color: #1c1c1c; /* Darker gray for a more neutral background */
+    padding: 20px; /* Adding some padding */
+    border-radius: 15px; /* Slightly larger rounding for a softer look */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); /* Stronger shadow for depth */
 }
 
 #slotMachine {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  width: 600px;
-  height: 120px;
-  border: 5px solid #333;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 600px;
+    height: 120px;
+    border: 5px solid #ffcc00; /* Gold border */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    background-color: #ffcc00; /* Dark background for the machine */
 }
 
 .option {
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 120px;
-  color: rgb(237, 237, 237);
-  transition: background-color 0.3s;
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 120px;
+    color: rgb(230, 230, 230);
+    transition: background-color 0.3s;
+    display: flex;
+    width: 100%;
+    height: 90%;
+    align-items: center;
+    justify-content: center;
+    background-color: #333; /* Dark background for options */
+    border: 2px solid #1c1c1c; /* Black border around each option */
+    border-radius: 5px; /* Optional: add some rounding to the corners */
 }
 
 .option-text {
@@ -214,100 +235,91 @@ h1 {
     overflow: hidden;
 }
 
-#spinButton {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  background-color: #333;
-  color: white;
-  transition: background-color 0.3s;
-  width: 100%;
-  max-width: 300px;
-}
-
-#spinButton:hover {
-  background-color: #555;
-}
-
 #resultRole {
-  font-size: 1.2rem;
-  color: #fff;
-  margin-top: 10px;
-  text-align: center;
+    font-size: 1.5rem; /* Slightly larger font */
+    color: #ffcc00; /* Gold color for better visibility */
+    margin-top: 10px;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Adding shadow for depth */
 }
 
 #resultsList {
-  margin-top: 20px;
-  color: #fff;
-  list-style-type: none;
-  padding: 0;
+    margin-top: 20px;
+    color: #fff;
+    list-style-type: none;
+    padding: 0;
+    text-align: left; /* Align results to the left for better readability */
 }
 
 #nameInput {
-  margin-top: 20px;
-  padding: 10px;
-  font-size: 1.1rem;
-  border: 2px solid #333;
-  border-radius: 5px;
-  width: 80%;
-  max-width: 400px;
+    width: 80%;
+    max-width: 400px;
+    margin-top: 20px; /* Added margin for spacing */
+    padding: 10px; /* Added padding for better usability */
+    border: 2px solid #ffcc00; /* Gold border */
+    border-radius: 5px;
+    background-color: #fff; /* White background for input */
+}
+
+#nameInput:focus {
+    outline: none;
+    border-color: #e6b800; /* Darker gold on focus */
 }
 
 .spin {
-  animation: spin 1s ease-in-out forwards;
+    animation: spin 1s ease-in-out forwards;
 }
 
 .option.spinning {
-  animation: spin 2.5s ease-out forwards;
+    animation: spin 2.5s ease-out forwards;
 }
 
 /* Responsive styles */
 @media (max-width: 768px) {
-  #slotMachine {
-    height: 100px;
-    width: 100%;
-  }
-  
-  .option {
-    font-size: 22px;
-    line-height: 100px;
-  }
-  
-  #spinButton {
-    font-size: 1rem;
-  }
-  
-  #resultRole {
-    font-size: 1rem;
-  }
+    #slotMachine {
+        height: 100px;
+        width: 100%;
+    }
+
+    .slot-machine-logo {
+        width: 90%;
+    }
+    
+    .option {
+        font-size: 22px;
+        line-height: 100px;
+    }
+    
+    #spinButton {
+        font-size: 1rem;
+    }
+    
+    #resultRole {
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
-  h1 {
-    font-size: 1.5rem;
-  }
+    h1 {
+        font-size: 1.5rem;
+    }
 
-  #slotMachine {
-    height: 90px;
-  }
+    #slotMachine {
+        height: 90px;
+    }
 
-  .option {
-    font-size: 18px;
-    line-height: 90px;
-  }
+    .option {
+        font-size: 18px;
+        line-height: 90px;
+    }
 
-  #spinButton {
-    padding: 8px 16px;
-    font-size: 0.9rem;
-  }
+    #spinButton {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
 
-  #nameInput {
-    font-size: 1rem;
-  }
+    #nameInput {
+        font-size: 1rem;
+    }
 }
-
 </style>
-  
