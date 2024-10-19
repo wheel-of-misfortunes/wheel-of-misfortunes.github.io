@@ -3,6 +3,7 @@ export default {
     content: [
       "./layouts/**/*.vue",
       "./pages/**/*.vue",
+      "./components/**/*.vue"
     ],
     theme: {
       extend: {},
