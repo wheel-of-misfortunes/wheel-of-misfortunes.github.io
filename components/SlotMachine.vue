@@ -90,12 +90,12 @@
   
   // Role distribution for spins
   const roleDistribution = ref([
-    { role: "DPS", count: 9 },
+    { role: "DPS", count: 10 },
     { role: "Healer", count: 3 },
     { role: "Tank", count: 2 }
   ]);
   
-  let spinsLeft = ref(14);
+  let spinsLeft = ref(15);
   const spinOrder = ref<string[]>([]);
   
   const nameInput = ref('');
@@ -148,7 +148,7 @@ function spinOptions() {
   setTimeout(() => {
     clearInterval(spinInterval); // Stop the rapid random changes
 
-    const selectedRole = spinOrder.value[14 - spinsLeft.value];
+    const selectedRole = spinOrder.value[15 - spinsLeft.value];
     const filteredOptions = options.value.filter(option => option.role === selectedRole);
     const shuffledOptions = filteredOptions.sort(() => 0.5 - Math.random()).slice(0, 3);
 
@@ -165,7 +165,7 @@ function spinOptions() {
     // Add result to the list
     const resultText = slotOptions.value.join(", ");
     const spinName = nameInput.value.trim() || "Unnamed Spin";
-    results.value.push(`Roll ${14 - spinsLeft.value}: ${spinName}: ${resultText} (Role: ${selectedRole})`);
+    results.value.push(`Roll ${15 - spinsLeft.value}: ${spinName}: ${resultText} (Role: ${selectedRole})`);
 
     spinsLeft.value--;
   }, 2500);
