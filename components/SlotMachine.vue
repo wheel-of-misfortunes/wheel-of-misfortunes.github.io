@@ -51,19 +51,19 @@
     { name: "Blood", role: "Tank", color: "#C41E3A" },
     { name: "Vengeance", role: "Tank", color: "#A330C9" },
     { name: "Guardian", role: "Tank", color: "#FF7C0A" },
-    { name: "Protection", role: "Tank", color: "#C69B6D" },
-    { name: "Protection", role: "Tank", color: "#F48CBA" },
+    { name: "Protectio (Warr)", role: "Tank", color: "#C69B6D" },
+    { name: "Protection (Pala)", role: "Tank", color: "#F48CBA" },
     { name: "Brewmaster", role: "Tank", color: "#00FF98" },
-    { name: "Holy", role: "Healer", color: "#FFFFFF" },
-    { name: "Holy", role: "Healer", color: "#F48CBA" },
+    { name: "Holy (Priest)", role: "Healer", color: "#FFFFFF" },
+    { name: "Holy (Pala)", role: "Healer", color: "#F48CBA" },
     { name: "Restoration", role: "Healer", color: "#FF7C0A" },
     { name: "Discipline", role: "Healer", color: "#FFFFFF" },
     { name: "Mistweaver", role: "Healer", color: "#00FF98" },
     { name: "Preservation", role: "Healer", color: "#33937F" },
     { name: "Retribution", role: "DPS", color: "#F48CBA" },
-    { name: "Frost", role: "DPS", color: "#C41E3A" },
+    { name: "Frost (DK)", role: "DPS", color: "#C41E3A" },
     { name: "Unholy", role: "DPS", color: "#C41E3A" },
-    { name: "Frost", role: "DPS", color: "#3FC7EB" },
+    { name: "Frost (Mage)", role: "DPS", color: "#3FC7EB" },
     { name: "Fire", role: "DPS", color: "#3FC7EB" },
     { name: "Arcane", role: "DPS", color: "#3FC7EB" },
     { name: "Havoc", role: "DPS", color: "#A330C9" },
@@ -90,12 +90,12 @@
   
   // Role distribution for spins
   const roleDistribution = ref([
-    { role: "DPS", count: 10 },
+    { role: "DPS", count: 11 },
     { role: "Healer", count: 3 },
     { role: "Tank", count: 2 }
   ]);
   
-  let spinsLeft = ref(15);
+  let spinsLeft = ref(16);
   const spinOrder = ref<string[]>([]);
   
   const nameInput = ref('');
@@ -148,7 +148,7 @@ function spinOptions() {
   setTimeout(() => {
     clearInterval(spinInterval); // Stop the rapid random changes
 
-    const selectedRole = spinOrder.value[15 - spinsLeft.value];
+    const selectedRole = spinOrder.value[16 - spinsLeft.value];
     const filteredOptions = options.value.filter(option => option.role === selectedRole);
     const shuffledOptions = filteredOptions.sort(() => 0.5 - Math.random()).slice(0, 3);
 
@@ -165,7 +165,7 @@ function spinOptions() {
     // Add result to the list
     const resultText = slotOptions.value.join(", ");
     const spinName = nameInput.value.trim() || "Unnamed Spin";
-    results.value.push(`Roll ${15 - spinsLeft.value}: ${spinName}: ${resultText} (Role: ${selectedRole})`);
+    results.value.push(`Roll ${17 - spinsLeft.value}: ${spinName}: ${resultText} (Role: ${selectedRole})`);
 
     spinsLeft.value--;
   }, 2500);
